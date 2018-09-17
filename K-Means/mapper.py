@@ -23,7 +23,7 @@ def main():
     min_dis = 99999999  # 最小距离平方和
     for line in sys.stdin:
         try:
-            if line != 'End' and flag:  # 读取初始聚类中心坐标
+            if line != 'End\n' and flag:  # 读取初始聚类中心坐标
                 x, y = line.strip().split(sep)
                 x_arr.append(x)
                 y_arr.append(y)

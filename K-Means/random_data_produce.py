@@ -17,4 +17,4 @@ def produce_data(n):  # 生成n个二维随机坐标数据集
 
 
 if __name__ == '__main__':
-    produce_data(10)
+    produce_data(80)
