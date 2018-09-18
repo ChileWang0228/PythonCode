@@ -17,7 +17,7 @@ def sample(n):  # 蓄水池抽样抽出n个聚类中心坐标
         x_arr = []
         y_arr = []
         for line in f:
-            line = line.rstrip()
+            line = line.strip()
             x, y = line.split('\t')
             if t < n:
                 x_arr.append(x)

@@ -5,7 +5,6 @@
 @Author:ChileWang
 @Function:mapper.py
 """
-import os
 import sys
 sep = '\t'
 
@@ -23,8 +22,10 @@ def get_cluster_center():  # 获得初始聚类坐标
         for line in f:
             line.strip()
             x, y = line.split(sep)
-            x_arr.append(x)
-            y_arr.append(y)
+            x_arr.append(x.strip())
+            y_arr.append(y.strip())
+    print(x_arr)
+    print(y_arr)
     return x_arr, y_arr
 
 
@@ -38,7 +39,7 @@ def main():
             x2, y2 = line.split(sep)
             cluster_id = '(' + x_arr[0] + ',' + y_arr[0] + ')'  # 聚类中心ID
             for i in range(len(x_arr)):
-                cur_dis = cal_dis(int(x_arr[i]), int(y_arr[i]), int(x2), int(y2))
+                cur_dis = cal_dis(int(x_arr[i]), int(y_arr[i]), int(x2.strip()), int(y2.strip()))
                 if cur_dis < min_dis:  # 小于当前最小距离则替换
                     cluster_id = x_arr[i] + ',' + y_arr[i]
                     min_dis = cur_dis
@@ -51,3 +52,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
