@@ -28,16 +28,11 @@ def sample(n):  # 蓄水池抽样抽出n个聚类中心坐标
                 if m < n:
                     x_arr[m] = x
                     y_arr[m] = y
-        content = f.read()
     with open('cluster_center.txt', 'w+')as f:  # 将聚类中心坐标写入文件
         for i in range(n):
             x = x_arr[i]
             y = y_arr[i]
             f.write(x + '\t' + y + '\n')
-        f.write('End\n')  # 插入标志，方便mapper函数辨认
-        with open('coordinate.txt', 'r+')as f1:
-            for line in f1:
-                f.write(line)
     return x_arr, y_arr
 
 

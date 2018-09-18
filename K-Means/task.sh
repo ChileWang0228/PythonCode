@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # DELETE THE OUTPUT DIR init_cluster_centers-output
 hadoop fs -rm -r init_cluster_centers-output
 # DELETE THE OUTPUT DIR init_cluster_centers
@@ -24,7 +25,7 @@ cd /usr/local/hadoop/hadoop-3.0.3
 bin/hadoop jar share/hadoop/tools/lib/hadoop-streaming-3.0.3.jar \
 -file /home/PythonCode/K-Means/mapper.py    -mapper /home/PythonCode/K-Means/mapper.py \
 -file /home/PythonCode/K-Means/reducer.py   -reducer /home/PythonCode/K-Means/reducer.py \
--input init_cluster_centers/*   -output init_cluster_centers-output
+-input init_cluster_centers/*  -input coordinate/*  -output init_cluster_centers-output
 #-input init_cluster_centers/*  coordinate/* -output init_cluster_centers-output
 
 # get MapReduce output and Change its name
