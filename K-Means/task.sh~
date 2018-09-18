@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # DELETE THE OUTPUT DIR init_cluster_centers-output
 hadoop fs -rm -r init_cluster_centers-output
+# DELETE THE OUTPUT DIR init_cluster_centers
+hadoop fs -rm -r init_cluster_centers
 # DELETE THE OUTPUT DIR coordinate
 hadoop fs -rm -r coordinate
 
