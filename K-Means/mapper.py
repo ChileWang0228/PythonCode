@@ -16,32 +16,34 @@ def cal_dis(x1, y1, x2, y2):  # 计算距离的平方,前者坐标为初始聚�
     return x * x + y * y
 
 
-def main():
-    # 初始聚类中心二维坐标
+def get_cluster_center():  # 获得初始聚类坐标
     x_arr = []
     y_arr = []
+    with open('cluster_center.txt', 'r+')as f:
+        for line in f:
+            line.strip()
+            x, y = line.split(sep)
+            x_arr.append(x)
+            y_arr.append(y)
+    return x_arr, y_arr
+
+
+def main():
+    # 初始聚类中心二维坐标
+    x_arr, y_arr = get_cluster_center()
     min_dis = 99999999  # 最小距离平方和
-    f_path = os.environ.get('mapreduce_map_input_file')  # 获取map函数输入文件名称
-    filename = os.path.split(f_path)   # 获取具体文件名称
     for line in sys.stdin:
         line = line.strip()
-        try:
-            if filename == 'cluster.txt':
-                x, y = line.split(sep)
-                x_arr.append(x)
-                y_arr.append(y)
-
-            if filename == 'coordinate.txt':  # 读取初始聚类中心坐标结束，开始输出聚类中心ID和当前类别id
-                print("读取初始聚类中心坐标结束，开始输出聚类中心ID和当前类别id")
-                x2, y2 = line.split(sep)
-                cluster_id = '(' + x_arr[0] + ',' + y_arr[0] + ')'  # 聚类中心ID
-                for i in range(len(x_arr)):
-                    cur_dis = cal_dis(int(x_arr[i]), int(y_arr[i]), int(x2), int(y2))
-                    if cur_dis < min_dis:  # 小于当前最小距离则替换
-                        cluster_id = x_arr[i] + ',' + y_arr[i]
-                        min_dis = cur_dis
-                cur_id = x2 + ',' + y2
-                print('%s\t%s' % (cluster_id, cur_id))  # 输出聚类中心ID和当前类别id
+        try:  # 读取初始聚类中心坐标结束，开始输出聚类中心ID和当前类别id
+            x2, y2 = line.split(sep)
+            cluster_id = '(' + x_arr[0] + ',' + y_arr[0] + ')'  # 聚类中心ID
+            for i in range(len(x_arr)):
+                cur_dis = cal_dis(int(x_arr[i]), int(y_arr[i]), int(x2), int(y2))
+                if cur_dis < min_dis:  # 小于当前最小距离则替换
+                    cluster_id = x_arr[i] + ',' + y_arr[i]
+                    min_dis = cur_dis
+            cur_id = x2 + ',' + y2
+            print('%s\t%s' % (cluster_id, cur_id))  # 输出聚类中心ID和当前类别id
         except Exception as err:
             del err
             continue

@@ -13,11 +13,8 @@ python random_data_produce.py
 python reservoir_sample.py
 
 # create the INPUT DIR
-hadoop fs -mkdir -p init_cluster_centers
 hadoop fs -mkdir -p coordinate
-
-# put the cluster center and coordinate file to HDFS
-hadoop fs -put /home/PythonCode/K-Means/cluster_center.txt init_cluster_centers
+# put the  coordinate file to HDFS
 hadoop fs -put /home/PythonCode/K-Means/coordinate.txt coordinate
 
 # run MapReduce job
@@ -25,8 +22,7 @@ cd /usr/local/hadoop/hadoop-3.0.3
 bin/hadoop jar share/hadoop/tools/lib/hadoop-streaming-3.0.3.jar \
 -file /home/PythonCode/K-Means/mapper.py    -mapper /home/PythonCode/K-Means/mapper.py \
 -file /home/PythonCode/K-Means/reducer.py   -reducer /home/PythonCode/K-Means/reducer.py \
--input init_cluster_centers/*  -input coordinate/*  -output init_cluster_centers-output
-#-input init_cluster_centers/*  coordinate/* -output init_cluster_centers-output
+-input coordinate/*  -output init_cluster_centers-output
 
 # get MapReduce output and Change its name
 mkdir -p /home/map_reduce_result
