@@ -18,9 +18,9 @@ hadoop fs -put /home/PythonCode/K-Means/coordinate.txt coordinate
 # run MapReduce job
 cd /usr/local/hadoop/hadoop-3.0.3
 bin/hadoop jar share/hadoop/tools/lib/hadoop-streaming-3.0.3.jar \
--file /home/PythonCode/K-Means/cluster_center.txt \
--file /home/PythonCode/K-Means/mapper.py    -mapper /home/PythonCode/K-Means/mapper.py \
--file /home/PythonCode/K-Means/reducer.py   -reducer /home/PythonCode/K-Means/reducer.py \
+-file /home/PythonCode/K-Means/Mapper1.py    -mapper /home/PythonCode/K-Means/Mapper1.py \
+-file /home/PythonCode/K-Means/Reducer.py   -reducer /home/PythonCode/K-Means/Reducer.py \
+-file /home/PythonCode/K-Means/coordinate.txt \
 -input coordinate/*  -output init_cluster_centers-output
 #-D stream.non.zero.exit.is.failure=false \
 
@@ -30,4 +30,3 @@ cd /home/map_reduce_result
 hadoop fs -get init_cluster_centers-output
 cur_date="`date +%Y%m%d_%H:%M:%S`" 
 mv init_cluster_centers-output $cur_date
-

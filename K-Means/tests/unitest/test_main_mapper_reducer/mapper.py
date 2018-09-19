@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 @Created on 2018-09-17 22:42
@@ -48,7 +48,6 @@ def main():
             del err
             continue
 
-	
 
 if __name__ == '__main__':
     main()

@@ -28,3 +28,8 @@ class TestReucer(unittest.TestCase):
 
     def test_1(self):
         self.assertEqual(reducer.main(), None)
+
+
+if __name__ == "__main__":
+    unittest.main()
+

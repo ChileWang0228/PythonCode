@@ -34,7 +34,7 @@ def main():  # 统计词频
                 avg_x = current_x / line_num
                 avg_y = current_y / line_num
                 line_num = 1  # 清零，重新计行数
-                print "%s\t%s" % (avg_x, avg_y)
+                print("%s\t%s" % (int(avg_x), int(avg_y)))
             current_x = x
             current_y = y
             current_word = word
@@ -42,7 +42,7 @@ def main():  # 统计词频
     if current_word == word:  # 输出最后一个聚类中心
         avg_x = current_x / line_num
         avg_y = current_y / line_num
-        print "%s\t%s" % (avg_x, avg_y)
+        print("%s\t%s" % (int(avg_x), int(avg_y)))
 
 
 if __name__ == '__main__':
