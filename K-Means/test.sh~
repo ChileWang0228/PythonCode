@@ -1,0 +1,7 @@
+delta=$(cat delta.txt)
+echo "delta = ${delta}"
+if [ "$JOB_Done" = "$delta" ];then
+	echo "delta = ${delta}"
+	break
+fi
+

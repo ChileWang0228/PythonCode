@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 function init_job(){
 	cd /home/PythonCode/K-Means
@@ -34,6 +34,8 @@ function mr_job(){
 	-file /home/PythonCode/K-Means/reducer.py   -reducer /home/PythonCode/K-Means/reducer.py \
 	-input coordinate/*  -output init_cluster_centers-output
 	#-D stream.non.zero.exit.is.failure=false \
+
+
 }
 
 function end_job(){
@@ -43,6 +45,8 @@ function end_job(){
 	hadoop fs -get init_cluster_centers-output
 	cur_date="`date +%Y%m%d_%H:%M:%S`" 
 	mv init_cluster_centers-output $cur_date
+	cd /home/PythonCode/K-Means
+	python dram_scatter.py
 }
 
 
@@ -56,18 +60,34 @@ function main(){
 	while : # do mr_job until delta < 1
 	do
 		mr_job
+		# get the new cluster centers dir
+		cd /home/PythonCode/K-Means
+		hadoop fs -get init_cluster_centers-output
+		cd /home/PythonCode/K-Means/draw_pic_coordinate
+		mkdir -p 1
+		cd /home/PythonCode/K-Means/draw_pic_coordinate/1
+		hadoop fs -get init_cluster_centers-output
+		cd
+		cur_date="`date +%Y%m%d_%H:%M:%S`" 
+		mv /home/PythonCode/K-Means/draw_pic_coordinate/1 $cur_date
+		
+
+		# calculate the delta and show the cluster centers
 		cal_delta
-		cat delta.txt | while read line
-		do 
-			delta=$line # get delta
-			echo "delta = "$delta
-			break
-		done
+		delta=$(cat delta.txt)
+		cd /home/PythonCode/K-Means
+		python dram_scatter.py
+		echo "delta.txt = ${delta}"
 		if [ "$JOB_Done" = "$delta" ];then
 			break
 		fi
+		cd /home/PythonCode/K-Means
+		rm -r init_cluster_centers-output
 	done
 	echo "-----------mr_job is ended----------"
+	echo "-----------end_job begin----------"
+	end_job
+	echo "-----------Mission Completed!----------"
 }
 
 
