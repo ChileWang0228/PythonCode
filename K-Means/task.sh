@@ -2,8 +2,6 @@
 
 function init_job(){
 	cd /home/PythonCode/K-Means
-	# produce 80 coordinate data
-	python random_data_produce.py
 	# produce 8 init cluster centerns
 	python reservoir_sample.py
 }
@@ -60,6 +58,9 @@ function main(){
 	while : # do mr_job until delta < 1
 	do
 		mr_job
+
+		cd /home/PythonCode/K-Means
+		rm -r init_cluster_centers-output
 		# get the new cluster centers dir
 		cd /home/PythonCode/K-Means
 		hadoop fs -get init_cluster_centers-output
@@ -81,8 +82,7 @@ function main(){
 		if [ "$JOB_Done" = "$delta" ];then
 			break
 		fi
-		cd /home/PythonCode/K-Means
-		rm -r init_cluster_centers-output
+
 	done
 	echo "-----------mr_job is ended----------"
 	echo "-----------end_job begin----------"

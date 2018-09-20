@@ -2,8 +2,6 @@
 
 function init_job(){
 	cd /home/PythonCode/K-Means
-	# produce 80 coordinate data
-	python random_data_produce.py
 	# produce 8 init cluster centerns
 	python reservoir_sample.py
 }
@@ -67,9 +65,9 @@ function main(){
 		mkdir -p 1
 		cd /home/PythonCode/K-Means/draw_pic_coordinate/1
 		hadoop fs -get init_cluster_centers-output
-		cd
+		cd /home/PythonCode/K-Means/draw_pic_coordinate
 		cur_date="`date +%Y%m%d_%H:%M:%S`" 
-		mv /home/PythonCode/K-Means/draw_pic_coordinate/1 $cur_date
+		mv 1 $cur_date
 		
 
 		# calculate the delta and show the cluster centers

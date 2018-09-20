@@ -12,9 +12,10 @@ def produce_data(n):  # 生成n个二维随机坐标数据集
     with open("coordinate.txt", 'w')as f:
         for i in range(n):
             x = str(random.randint(0, 100))
-            y = str(random.randint(0, 150))
+            y = str(random.randint(0, 100))
             f.write(x + '\t' + y + '\n')
 
 
+
 if __name__ == '__main__':
-    produce_data(80)
+    produce_data(50)

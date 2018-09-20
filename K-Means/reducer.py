@@ -19,8 +19,8 @@ def main():  # 统计词频
         word, count = line.split('\t', 1)
         try:
             x, y = count.split(',', 1)
-            x = int(x.strip())
-            y = int(y.strip())
+            x = float(x.strip())
+            y = float(y.strip())
         except ValueError:
             continue
 

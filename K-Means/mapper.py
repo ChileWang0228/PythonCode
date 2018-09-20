@@ -38,7 +38,7 @@ def main():
             x2, y2 = line.split(sep)
             cluster_id = '(' + str(x_arr[0]) + ',' + str(y_arr[0]) + ')'  # 聚类中心ID
             for i in range(len(x_arr)):
-                cur_dis = cal_dis(int(x_arr[i]), int(y_arr[i]), int(x2.strip()), int(y2.strip()))
+                cur_dis = cal_dis(float(x_arr[i]), float(y_arr[i]), float(x2.strip()), float(y2.strip()))
                 if cur_dis < min_dis:  # 小于当前最小距离则替换
                     cluster_id = '(' + str(x_arr[i]) + ',' + str(y_arr[i]) + ')'
                     min_dis = cur_dis

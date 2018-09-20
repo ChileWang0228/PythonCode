@@ -15,26 +15,25 @@ def cal_delta():
 		for line in f:
 			line.strip()
 			x, y = line.split('\t')
-			x1_arr.append(int(x))
-			y1_arr.append(int(y))
+			x1_arr.append(float(x))
+			y1_arr.append(float(y))
 	with open("init_cluster_centers-output/part-00000","r+")as f:
 		for line in f:
 			line.strip()
 			x, y = line.split('\t')
-			x2_arr.append(int(x))
-			y2_arr.append(int(y))
+			x2_arr.append(float(x))
+			y2_arr.append(float(y))
 	for i in range(len(y1_arr)):
 		x = x1_arr[i] - x2_arr[i]
 		y = y1_arr[i] - y2_arr[i]
 		delta += x * x + y * y
 	delta = delta / len(y1_arr)
-	print("delta=%s" % delta)
-	if int(delta) < 1 :
+	if float(delta) < 0.1 :
 		with open("delta.txt","w")as f:
 			f.write("done")
 	else:
 		with open("delta.txt","w")as f:
-			f.write("1")
+			f.write(str(delta))
 		with open("cluster_center.txt","w")as f:
 			with open("init_cluster_centers-output/part-00000","r+")as f1:
 				for line in f1:
